@@ -73,7 +73,7 @@ function init() {
   scene.add(plane);
 
   let loader = new GLTFLoader();
-  loader.load("Model/2014_ferrari_laferrari.glb", function (gltf) {
+  loader.load("/Model/2014_ferrari_laferrari.glb", function (gltf) {
     car = gltf.scene.children[0];
     car.scale.set(56, 56, 56);
     car.rotation.set(4.7, 0, 0);

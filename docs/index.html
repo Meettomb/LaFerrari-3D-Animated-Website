@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaFerrari</title>
+    <link rel="icon" href="/laFerrari-3D-Animated-website/assets/ferrari-logo--g_1JGUE.png" type="image/png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
+
+    <!-- Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&family=Tektur:wght@400..900&display=swap"
+        rel="stylesheet">
+
+
+  <script type="module" crossorigin src="/laFerrari-3D-Animated-website/assets/index-CYUpuBSc.js"></script>
+  <link rel="stylesheet" crossorigin href="/laFerrari-3D-Animated-website/assets/index-BtRWsO9D.css">
+</head>
+
+<body>
+    <div class="loader-container">
+        <div class="loader">
+            <div>F</div>
+            <div>E</div>
+            <div>R</div>
+            <div>R</div>
+            <div>A</div>
+            <div>R</div>
+            <div>I</div>
+        </div>
+    </div>
+
+
+    <div class="scroll-progress-bar"></div>
+
+    <div class="rander">
+        <canvas class="wbgl"></canvas>
+    </div>
+    <main class="">
+        <section class="car__header">
+
+            <section class="snap-section">
+                <div class="car_brande">
+                    <h1>Ferrari</h1>
+                </div>
+            </section>
+
+            <section class="snap-section">
+                <div class="car_name_container">
+                    <div class="car_name carInfo">
+                        <h1>LaFerrari</h1>
+                        <img src="/laFerrari-3D-Animated-website/assets/FerrariLogo-BcGWpYD_.png" alt="">
+                        <p>The Ferrari LaFerrari, introduced in 2013, is a limited-production hybrid sports car,
+                            representing the pinnacle of Ferrari's engineering and design at the time. It was the first
+                            Ferrari to incorporate a KERS (Kinetic Energy Recovery System) hybrid system. </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="snap-section">
+                <div class="car_feature_info_container">
+                    <div class="car_feature_info carInfo">
+                        <h1>Feature</h1>
+                        <div class="feature">
+                            <ul>
+                                <li><span>Speed: </span>
+                                    <p>217 mph (350 km/h)</p>
+                                </li>
+                                <li><span>Power: </span>
+                                    <p>950 hp (708 kW)</p>
+                                </li>
+                                <li><span>Engine: </span>
+                                    <p>6.3L V12</p>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li><span>Weight: </span>
+                                    <p>1585 kg (3494 lbs)</p>
+                                </li>
+                                <li><span>Transmission: </span>
+                                    <p>7-speed</p>
+                                </li>
+                                <li><span>Drivetrain: </span>
+                                    <p>Rear-wheel drive</p>
+                                </li>
+                            </ul>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="snap-section">
+                <div class="car_tire_container">
+                    <div class="car_tire carInfo">
+                        <h1>Wheel</h1>
+                        <p>
+                            The LaFerrari's tires are specially designed to handle the car's immense power and
+                            performance.
+                            They
+                            feature a unique tread pattern and compound that provides exceptional grip and stability at
+                            high
+                            speeds.
+                            The tires are also designed to work in harmony with the car's advanced aerodynamics and
+                            suspension
+                            systems, ensuring optimal performance on both the road and track.
+                        <ul>
+                            <li>Front Tire: 265/30 ZR19</li>
+                            <li>Rear Tire: 345/30 ZR20</li>
+                            <li>Type: Pirelli P-Zero</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="snap-section">
+                <div class="car_engin_container" >
+                    <div class="car_engin carInfo">
+                        <div class="interior_image">
+                            <img src="/laFerrari-3D-Animated-website/assets/interior3-BWK0s2d9.jpg" alt="">
+                        </div>
+                        <div class="engin_start_stop_button">
+                            <button id="Start-Stop">
+                                <img src="/laFerrari-3D-Animated-website/assets/Start_and_stop-Dn0BUYQ_.png" alt="" srcset="">
+                            </button>
+                            <span>Start / Stop</span>
+                            <audio id="engineSound" src="/laFerrari-3D-Animated-website/assets/LaFerrari-Start2-C-ef1MoL.mp3"></audio>
+                            <audio id="engineSound2" src="/laFerrari-3D-Animated-website/assets/LaFerrari-Start-infinite-DGXGmyMA.mp3"></audio>
+                        </div>
+
+                        <div class="paddels_container">
+                            <div class="paddel">
+                                <div class="brack">
+                                    <img src="/laFerrari-3D-Animated-website/assets/brack_pedal--KuBLmNO.png" alt="">
+                                    <span>Brack (S)</span>
+                                    <audio id="brackSounde" src="/laFerrari-3D-Animated-website/assets/LaFerrari-Brack-DI_0Ezxh.mp3"></audio>
+                                </div>
+                                <div class="accelerator">
+                                    <img src="/laFerrari-3D-Animated-website/assets/accelerator_pedal%20-Do_hSROP.png" id="acceleratorPaddel" alt="">
+                                    <span>Accelerat (W)</span>
+                                    <audio id="acceleratorSound" src="/laFerrari-3D-Animated-website/assets/LaFerrari-accelerator-DAd6P-6F.mp3"></audio>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+
+        </section>
+    </main>
+
+
+    <script>
+        const button = document.getElementById("Start-Stop");
+        const engineSound = document.getElementById("engineSound");
+        const engineSound2 = document.getElementById("engineSound2");
+
+        const acceleratorPaddel = document.getElementById("acceleratorPaddel");
+        const acceleratorSound = document.getElementById("acceleratorSound");
+
+        const brackSounde = document.getElementById("brackSounde");
+        const brackPedal = document.querySelector(".brack img");
+
+        let isEnginePlaying = false;
+        let acceleratorEnabled = false;
+        let engineLoopStarted = false;
+
+        // Initial states
+        [acceleratorPaddel, brackPedal].forEach(el => {
+            el.style.pointerEvents = "none";
+            el.style.opacity = "0.5";
+        });
+
+        engineSound2.loop = true;
+        engineSound2.volume = 0;
+
+        acceleratorSound.loop = true;
+        acceleratorSound.volume = 0;
+
+        brackSounde.loop = true;
+        brackSounde.volume = 0;
+
+        // Start/Stop Engine
+        button.addEventListener("click", () => {
+            if (!isEnginePlaying) {
+                engineSound.currentTime = 0;
+                engineSound.play();
+                isEnginePlaying = true;
+                engineLoopStarted = false;
+
+                // Slight overlap
+                const overlapTime = engineSound.duration - 1;
+                setTimeout(() => {
+                    if (isEnginePlaying && !engineLoopStarted) {
+                        engineSound2.currentTime = 0;
+                        engineSound2.play();
+                        fadeIn(engineSound2, 0.2, 1000);
+                        engineLoopStarted = true;
+                    }
+                }, overlapTime * 1000);
+
+                // Enable pedals after 5s
+                setTimeout(() => {
+                    if (isEnginePlaying) {
+                        acceleratorEnabled = true;
+                        [acceleratorPaddel, brackPedal].forEach(el => {
+                            el.style.pointerEvents = "auto";
+                            el.style.opacity = "1";
+                        });
+                    }
+                }, 5000);
+            } else {
+                stopAllSounds();
+            }
+        });
+
+        // Accelerator control
+        function playAccelerator() {
+            if (isEnginePlaying && acceleratorEnabled) {
+                brackSounde.pause();
+                brackSounde.currentTime = 0;
+                fadeOut(brackSounde, 200);
+
+                acceleratorSound.currentTime = 0;
+                acceleratorSound.play();
+                fadeIn(acceleratorSound, 1.0, 300);
+
+                setTimeout(checkEngineVolumeControl, 350);
+            }
+        }
+
+        function stopAccelerator() {
+            fadeOut(acceleratorSound, 300);
+            setTimeout(checkEngineVolumeControl, 350);
+        }
+
+        acceleratorPaddel.addEventListener("mousedown", playAccelerator);
+        acceleratorPaddel.addEventListener("mouseup", stopAccelerator);
+
+        // Brake control
+        function playBrake() {
+            if (isEnginePlaying && acceleratorEnabled) {
+                const isAcceleratorActive = !acceleratorSound.paused && acceleratorSound.volume > 0;
+
+                if (isAcceleratorActive) {
+                    fadeOut(acceleratorSound, 200);
+
+                    brackSounde.currentTime = 0;
+                    brackSounde.play();
+                    fadeIn(brackSounde, 1.0, 300);
+
+                    setTimeout(checkEngineVolumeControl, 350);
+                }
+            }
+        }
+
+        function stopBrake() {
+            fadeOut(brackSounde, 300);
+            setTimeout(checkEngineVolumeControl, 350);
+        }
+
+        brackPedal.addEventListener("mousedown", playBrake);
+        brackPedal.addEventListener("mouseup", stopBrake);
+
+        // Keyboard control
+        let keysPressed = { w: false, s: false };
+
+        document.addEventListener("keydown", (e) => {
+            if ((e.key === "w" || e.key === "W") && !keysPressed.w) {
+                keysPressed.w = true;
+                playAccelerator();
+            }
+            if ((e.key === "s" || e.key === "S") && !keysPressed.s) {
+                keysPressed.s = true;
+                playBrake();
+            }
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "w" || e.key === "W") {
+                keysPressed.w = false;
+                stopAccelerator();
+            }
+            if (e.key === "s" || e.key === "S") {
+                keysPressed.s = false;
+                stopBrake();
+            }
+        });
+
+        // Stop all sounds and reset
+        function stopAllSounds() {
+            isEnginePlaying = false;
+            acceleratorEnabled = false;
+            engineLoopStarted = false;
+
+            [engineSound, engineSound2, acceleratorSound, brackSounde].forEach(s => {
+                s.pause();
+                s.currentTime = 0;
+                s.volume = 0;
+            });
+
+            [acceleratorPaddel, brackPedal].forEach(el => {
+                el.style.pointerEvents = "none";
+                el.style.opacity = "0.5";
+            });
+        }
+
+        // Fade helpers
+        function fadeIn(audio, targetVolume, duration) {
+            let step = 50;
+            let volumeStep = (targetVolume - audio.volume) / (duration / step);
+            let interval = setInterval(() => {
+                if (audio.volume < targetVolume) {
+                    audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+                } else {
+                    clearInterval(interval);
+                }
+            }, step);
+        }
+
+        function fadeOut(audio, duration) {
+            let step = 50;
+            let volumeStep = audio.volume / (duration / step);
+            let interval = setInterval(() => {
+                if (audio.volume > 0) {
+                    audio.volume = Math.max(audio.volume - volumeStep, 0);
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    clearInterval(interval);
+                }
+            }, step);
+        }
+
+        // Adjust engine sound2 volume if both accel and brake are active
+        function checkEngineVolumeControl() {
+            const isAcceleratorPlaying = !acceleratorSound.paused && acceleratorSound.volume > 0;
+            const isBrakePlaying = !brackSounde.paused && brackSounde.volume > 0;
+
+            if (isAcceleratorPlaying && isBrakePlaying) {
+                // Stop engineSound2 if both are playing
+                fadeOut(engineSound2, 300);
+            } else if (isEnginePlaying && engineSound2.paused) {
+                // Resume engineSound2 if engine is on and it's not already playing
+                engineSound2.currentTime = 0;
+                engineSound2.play();
+                fadeIn(engineSound2, 0.5, 500);
+            }
+        }
+
+    </script>
+
+
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.querySelector(".loader-container");
+            loader.classList.add("hide-loader");
+        });
+    </script>
+
+
+
+</body>
+
+</html>

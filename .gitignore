@@ -1,0 +1,10 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore build logs
+dist/
+docs/.vitepress/cache
+
+# Optional: VS Code files, Mac junk, etc.
+.vscode/
+.DS_Store
