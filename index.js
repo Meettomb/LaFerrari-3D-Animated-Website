@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { hilbert2D } from "three/examples/jsm/utils/GeometryUtils.js";
+import { select } from "three/tsl";
 
 let scene,
   camera,
@@ -31,7 +32,7 @@ function init() {
     1,
     50
   );
-  camera.position.set(0, 1, 8);
+  updateCameraPosition();
 
   controls = new OrbitControls(camera, document.querySelector(".wbgl"));
   controls.addEventListener("change", renderer);
@@ -74,7 +75,6 @@ function init() {
 
   let loader = new GLTFLoader();
   loader.load("Model/2014_ferrari_laferrari.glb", function (gltf) {
-
     car = gltf.scene.children[0];
     car.scale.set(56, 56, 56);
     car.rotation.set(4.7, 0, 0);
@@ -111,12 +111,30 @@ function init() {
     {
       sectionClass: "car_feature_info_container",
       rotation: new THREE.Euler(4.8, 0, 1.55),
-      position: new THREE.Vector3(0, -0.2, 4.8),
+      position:
+        window.innerWidth < 768
+          ? new THREE.Vector3(-0.1, -1.2, 5.6)
+          : window.innerWidth < 1200
+          ? new THREE.Vector3(0, -0.3, 5.2)
+          : new THREE.Vector3(0, -0.2, 4.8),
+      scale:
+        window.innerWidth < 768
+          ? new THREE.Vector3(45, 45, 45)
+          : window.innerWidth < 1200
+          ? new THREE.Vector3(45, 45, 45)
+          : new THREE.Vector3(56, 56, 56),
     },
     {
       sectionClass: "car_tire_container",
       rotation: new THREE.Euler(4.7, 0, 1.44),
-      position: new THREE.Vector3(1.3, 0.7, 6.3),
+
+      position:
+        window.innerWidth < 768
+        ? new THREE.Vector3(0.7, 1.1, 9.7)
+        : window.innerWidth < 1200
+        ? new THREE.Vector3(1.3, 0.7, 6.3)
+        : new THREE.Vector3(1.3, 0.7, 6.3),
+
       onEnter: () => {
         const tireItems = document.querySelectorAll(
           ".car_tire_container .car_tire ul li"
@@ -157,6 +175,9 @@ function init() {
           targetPosition.copy(match.position);
           targetRotation.copy(match.rotation);
 
+          if (match.scale) {
+            car.scale.copy(match.scale);
+          }
           if (typeof match.onEnter === "function") {
             match.onEnter();
           }
@@ -206,6 +227,21 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+
+  updateCameraPosition();
+}
+
+function updateCameraPosition() {
+  if (window.innerWidth < 768) {
+    // Mobile
+    camera.position.set(0, 1, 12);
+  } else if (window.innerWidth < 1200) {
+    // Tablet
+    camera.position.set(0, 1, 10);
+  } else {
+    // Desktop
+    camera.position.set(0, 1, 8);
+  }
 }
 
 init();
@@ -319,3 +355,37 @@ window.addEventListener("scroll", () => {
   const scrolled = (scrollTop / docHeight) * 100;
   document.querySelector(".scroll-progress-bar").style.width = `${scrolled}%`;
 });
+let touchStartY = 0;
+let touchEndY = 0;
+
+window.addEventListener("touchstart", (e) => {
+  touchStartY = e.changedTouches[0].screenY;
+});
+
+window.addEventListener("touchend", (e) => {
+  touchEndY = e.changedTouches[0].screenY;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  if (isScrolling) return;
+
+  const threshold = 50; // Minimum distance to be considered a swipe
+  const swipeDistance = touchStartY - touchEndY;
+
+  if (Math.abs(swipeDistance) < threshold) return;
+
+  const direction = swipeDistance > 0 ? 1 : -1;
+  const nextIndex = currentIndex + direction;
+
+  if (nextIndex >= 0 && nextIndex < sections.length) {
+    isScrolling = true;
+    currentIndex = nextIndex;
+
+    sections[currentIndex].scrollIntoView({ behavior: "smooth" });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1000);
+  }
+}
