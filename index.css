@@ -197,7 +197,9 @@ main section {
   background-color: transparent;
   pointer-events: none;
 }
-
+.wbgl.active-controls {
+  pointer-events: auto;
+}
 
 
 main .car_brande {
@@ -674,6 +676,14 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
 
 
 
+
+.wbgl2 canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
 .carInfo {
   opacity: 0;
   transform: translateY(30px);
@@ -684,6 +694,48 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
   opacity: 1;
   transform: translateY(0);
 }
+
+.threeD_view{
+  background-color: #2c0000;
+  width: 100%;
+  height: 100dvh;
+  position: relative;
+}
+.threeD_view .wbgl2 {
+  display: block;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.threeD_view h1{
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-size: 7em;
+  font-family: "Tektur", sans-serif;
+  animation: car_name-animation 2s ease-in-out;
+  width: 100%;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media (max-width:1440px) {
@@ -797,7 +849,9 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
 }
 
 @media (max-width:786px) {
-
+.loader-container .loader div{
+  font-size: 20px;
+}
   main .car_brande h1 {
     font-size: 50px;
   }

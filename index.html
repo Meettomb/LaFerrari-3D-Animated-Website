@@ -41,6 +41,8 @@
     <div class="rander">
         <canvas class="wbgl"></canvas>
     </div>
+
+
     <main class="">
         <section class="car__header">
 
@@ -123,7 +125,7 @@
             </section>
 
             <section class="snap-section">
-                <div class="car_engin_container" >
+                <div class="car_engin_container">
                     <div class="car_engin carInfo">
                         <div class="interior_image">
                             <img src="/image/interior3.jpg" alt="">
@@ -156,13 +158,20 @@
                 </div>
             </section>
 
-
+            <section class="snap-section">
+                <div class="threeD_view">
+                    <h1>3D View</h1>
+                     <canvas class="wbgl2"></canvas>
+                </div>
+            </section>
 
         </section>
     </main>
 
 
-    <script type="module" src="/index.js"></script>
+    <script type="module" src="/Javascript/index.js"></script>
+    <script type="module" src="/Javascript/index2.js"></script>
+    <script src="/Javascript/scroll.js"></script>
 
     <script>
         const button = document.getElementById("Start-Stop");
@@ -367,9 +376,13 @@
     <script>
         window.addEventListener("load", () => {
             const loader = document.querySelector(".loader-container");
-            loader.classList.add("hide-loader");
+
+            setTimeout(() => {
+                loader.classList.add("hide-loader");
+            }, 1000);
         });
     </script>
+
 
 
 
