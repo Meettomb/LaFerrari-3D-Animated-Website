@@ -703,7 +703,7 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
 }
 .threeD_view .wbgl2 {
   display: block;
-  z-index: 9999;
+  z-index: 99;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -721,6 +721,44 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
   margin-top: 20px;
 }
 
+.threeD_view .color{
+  position: absolute;
+  left: 2%;
+  bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 999;
+}
+.threeD_view .color .color_black{
+  background-color: rgb(0, 0, 0);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  outline: 2px white solid;
+  padding: 5px;
+  cursor: pointer;
+}
+.threeD_view .color .color_black:hover{
+  transform: scale(0.8);
+  transition: all 0.1s ease-in;
+}
+
+
+.threeD_view .color .color_red{
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  outline: 2px white solid;
+  padding: 5px;
+  cursor: pointer;
+}
+.threeD_view .color .color_red:hover{
+  transform: scale(0.8);
+  transition: all 0.1s ease-in;
+}
 
 
 
