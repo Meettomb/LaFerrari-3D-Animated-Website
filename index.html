@@ -36,7 +36,6 @@
     </div>
 
 
-    <div class="scroll-progress-bar"></div>
 
     <div class="rander">
         <canvas class="wbgl"></canvas>
@@ -44,6 +43,10 @@
 
 
     <main class="">
+        <!-- Progress Dots Container -->
+        <div class="prgress_dots"></div>
+
+
         <section class="car__header">
 
             <section class="snap-section">
@@ -127,7 +130,7 @@
             <section class="snap-section">
                 <div class="car_engin_container">
                     <div class="car_engin carInfo">
-                        <div class="interpior_image">
+                        <div class="interior_image">
                             <img src="/image/interior3.jpg" alt="">
                         </div>
                         <div class="engin_start_stop_button">
@@ -135,7 +138,7 @@
                                 <img src="/image/Start_and_stop.png" alt="" srcset="">
                             </button>
                             <span>Start / Stop</span>
-                            <audio id="engineSound" src="/Sound/LaFerrari-Start2.mp3"></audio>
+                            <audio id="engineSound" src="/Sound/LaFerrari-Start3.mp3"></audio>
                             <audio id="engineSound2" src="/Sound/LaFerrari-Start-infinite.mp3"></audio>
                         </div>
 
@@ -165,6 +168,7 @@
                     <div class="color">
                         <div class="color_black"></div>
                         <div class="color_red"></div>
+                        <div class="color_white"></div>
                     </div>
                 </div>
             </section>
@@ -177,212 +181,217 @@
     <script src="/Javascript/scroll.js"></script>
 
     <script>
-        const button = document.getElementById("Start-Stop");
-        const engineSound = document.getElementById("engineSound");
-        const engineSound2 = document.getElementById("engineSound2");
+        window.addEventListener("DOMContentLoaded", () => {
+            const button = document.getElementById("Start-Stop");
+            const engineSound = document.getElementById("engineSound");
+            const engineSound2 = document.getElementById("engineSound2");
 
-        const acceleratorPaddel = document.getElementById("acceleratorPaddel");
-        const acceleratorSound = document.getElementById("acceleratorSound");
+            const acceleratorPaddel = document.getElementById("acceleratorPaddel");
+            const acceleratorSound = document.getElementById("acceleratorSound");
 
-        const brackSounde = document.getElementById("brackSounde");
-        const brackPedal = document.querySelector(".brack img");
+            const brackSounde = document.getElementById("brackSounde");
+            const brackPedal = document.querySelector(".brack img");
 
-        let isEnginePlaying = false;
-        let acceleratorEnabled = false;
-        let engineLoopStarted = false;
+            let isEnginePlaying = false;
+            let acceleratorEnabled = false;
+            let engineLoopStarted = false;
 
-        // Initial states
-        [acceleratorPaddel, brackPedal].forEach(el => {
-            el.style.pointerEvents = "none";
-            el.style.opacity = "0.5";
-        });
-
-        engineSound2.loop = true;
-        engineSound2.volume = 0;
-
-        acceleratorSound.loop = true;
-        acceleratorSound.volume = 0;
-
-        brackSounde.loop = true;
-        brackSounde.volume = 0;
-
-        // Start/Stop Engine
-        button.addEventListener("click", () => {
-            if (!isEnginePlaying) {
-                engineSound.currentTime = 0;
-                engineSound.play();
-                isEnginePlaying = true;
-                engineLoopStarted = false;
-
-                // Slight overlap
-                const overlapTime = engineSound.duration - 1;
-                setTimeout(() => {
-                    if (isEnginePlaying && !engineLoopStarted) {
-                        engineSound2.currentTime = 0;
-                        engineSound2.play();
-                        fadeIn(engineSound2, 0.2, 1000);
-                        engineLoopStarted = true;
-                    }
-                }, overlapTime * 1000);
-
-                // Enable pedals after 5s
-                setTimeout(() => {
-                    if (isEnginePlaying) {
-                        acceleratorEnabled = true;
-                        [acceleratorPaddel, brackPedal].forEach(el => {
-                            el.style.pointerEvents = "auto";
-                            el.style.opacity = "1";
-                        });
-                    }
-                }, 5000);
-            } else {
-                stopAllSounds();
-            }
-        });
-
-        // Accelerator control
-        function playAccelerator() {
-            if (isEnginePlaying && acceleratorEnabled) {
-                brackSounde.pause();
-                brackSounde.currentTime = 0;
-                fadeOut(brackSounde, 200);
-
-                acceleratorSound.currentTime = 0;
-                acceleratorSound.play();
-                fadeIn(acceleratorSound, 1.0, 300);
-
-                setTimeout(checkEngineVolumeControl, 350);
-            }
-        }
-
-        function stopAccelerator() {
-            fadeOut(acceleratorSound, 300);
-            setTimeout(checkEngineVolumeControl, 350);
-        }
-
-        acceleratorPaddel.addEventListener("mousedown", playAccelerator);
-        acceleratorPaddel.addEventListener("mouseup", stopAccelerator);
-
-        // Brake control
-        function playBrake() {
-            if (isEnginePlaying && acceleratorEnabled) {
-                const isAcceleratorActive = !acceleratorSound.paused && acceleratorSound.volume > 0;
-
-                if (isAcceleratorActive) {
-                    fadeOut(acceleratorSound, 200);
-
-                    brackSounde.currentTime = 0;
-                    brackSounde.play();
-                    fadeIn(brackSounde, 1.0, 300);
-
-                    setTimeout(checkEngineVolumeControl, 350);
-                }
-            }
-        }
-
-        function stopBrake() {
-            fadeOut(brackSounde, 300);
-            setTimeout(checkEngineVolumeControl, 350);
-        }
-
-        brackPedal.addEventListener("mousedown", playBrake);
-        brackPedal.addEventListener("mouseup", stopBrake);
-
-        // Keyboard control
-        let keysPressed = { w: false, s: false };
-
-        document.addEventListener("keydown", (e) => {
-            if ((e.key === "w" || e.key === "W") && !keysPressed.w) {
-                keysPressed.w = true;
-                playAccelerator();
-            }
-            if ((e.key === "s" || e.key === "S") && !keysPressed.s) {
-                keysPressed.s = true;
-                playBrake();
-            }
-        });
-
-        document.addEventListener("keyup", (e) => {
-            if (e.key === "w" || e.key === "W") {
-                keysPressed.w = false;
-                stopAccelerator();
-            }
-            if (e.key === "s" || e.key === "S") {
-                keysPressed.s = false;
-                stopBrake();
-            }
-        });
-
-        // Stop all sounds and reset
-        function stopAllSounds() {
-            isEnginePlaying = false;
-            acceleratorEnabled = false;
-            engineLoopStarted = false;
-
-            [engineSound, engineSound2, acceleratorSound, brackSounde].forEach(s => {
-                s.pause();
-                s.currentTime = 0;
-                s.volume = 0;
-            });
-
+            // Initial states
             [acceleratorPaddel, brackPedal].forEach(el => {
                 el.style.pointerEvents = "none";
                 el.style.opacity = "0.5";
             });
-        }
 
-        // Fade helpers
-        function fadeIn(audio, targetVolume, duration) {
-            let step = 50;
-            let volumeStep = (targetVolume - audio.volume) / (duration / step);
-            let interval = setInterval(() => {
-                if (audio.volume < targetVolume) {
-                    audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+            engineSound2.loop = true;
+            engineSound2.volume = 0;
+
+            acceleratorSound.loop = true;
+            acceleratorSound.volume = 0;
+
+            brackSounde.loop = true;
+            brackSounde.volume = 0;
+
+            // Start/Stop Engine
+            button.addEventListener("click", () => {
+                if (!isEnginePlaying) {
+                    engineSound.currentTime = 0;
+                    engineSound.play().then(() => {
+                        isEnginePlaying = true;
+                        engineLoopStarted = false;
+
+                        const overlapTime = engineSound.duration - 1;
+                        setTimeout(() => {
+                            if (isEnginePlaying && !engineLoopStarted) {
+                                engineSound2.currentTime = 0;
+                                engineSound2.play();
+                                fadeIn(engineSound2, 0.2, 1000);
+                                engineLoopStarted = true;
+                            }
+                        }, overlapTime * 1000);
+
+                        setTimeout(() => {
+                            if (isEnginePlaying) {
+                                acceleratorEnabled = true;
+                                [acceleratorPaddel, brackPedal].forEach(el => {
+                                    el.style.pointerEvents = "auto";
+                                    el.style.opacity = "1";
+                                });
+                            }
+                        }, 5000);
+                    }).catch(err => {
+                        console.error("Engine sound play failed:", err);
+                    });
                 } else {
-                    clearInterval(interval);
+                    stopAllSounds();
                 }
-            }, step);
-        }
+            });
 
-        function fadeOut(audio, duration) {
-            let step = 50;
-            let volumeStep = audio.volume / (duration / step);
-            let interval = setInterval(() => {
-                if (audio.volume > 0) {
-                    audio.volume = Math.max(audio.volume - volumeStep, 0);
-                } else {
-                    audio.pause();
-                    audio.currentTime = 0;
-                    clearInterval(interval);
+
+            // Accelerator control
+            function playAccelerator() {
+                if (isEnginePlaying && acceleratorEnabled) {
+                    if (acceleratorSound.paused) {
+                        acceleratorSound.play().catch(err => console.error(err));
+                    }
+                    fadeIn(acceleratorSound, 1.0, 100); // fade in quickly
+                    fadeOut(brackSounde, 100); // if brake sound is playing
+                    setTimeout(checkEngineVolumeControl, 150);
                 }
-            }, step);
-        }
-
-        // Adjust engine sound2 volume if both accel and brake are active
-        function checkEngineVolumeControl() {
-            const isAcceleratorPlaying = !acceleratorSound.paused && acceleratorSound.volume > 0;
-            const isBrakePlaying = !brackSounde.paused && brackSounde.volume > 0;
-
-            if (isAcceleratorPlaying && isBrakePlaying) {
-                // Stop engineSound2 if both are playing
-                fadeOut(engineSound2, 300);
-            } else if (isEnginePlaying && engineSound2.paused) {
-                // Resume engineSound2 if engine is on and it's not already playing
-                engineSound2.currentTime = 0;
-                engineSound2.play();
-                fadeIn(engineSound2, 0.5, 500);
             }
-        }
 
+            function stopAccelerator() {
+                fadeOut(acceleratorSound, 200); // fade out when key/mouse released
+                setTimeout(checkEngineVolumeControl, 250);
+            }
+
+
+
+            acceleratorPaddel.addEventListener("mousedown", playAccelerator);
+            acceleratorPaddel.addEventListener("mouseup", stopAccelerator);
+
+            // Brake control
+            function playBrake() {
+                if (isEnginePlaying && acceleratorEnabled) {
+                    if (brackSounde.paused) {
+                        brackSounde.play().catch(err => console.error(err));
+                    }
+                    fadeIn(brackSounde, 1.0, 100);
+                    fadeOut(acceleratorSound, 100);
+                    setTimeout(checkEngineVolumeControl, 150);
+                }
+            }
+
+            function stopBrake() {
+                fadeOut(brackSounde, 200);
+                setTimeout(checkEngineVolumeControl, 250);
+            }
+
+
+
+            brackPedal.addEventListener("mousedown", playBrake);
+            brackPedal.addEventListener("mouseup", stopBrake);
+
+            // Keyboard control
+            let keysPressed = { w: false, s: false };
+
+            document.addEventListener("keydown", (e) => {
+                if ((e.key === "w" || e.key === "W") && !keysPressed.w) {
+                    keysPressed.w = true;
+                    playAccelerator();
+                }
+                if ((e.key === "s" || e.key === "S") && !keysPressed.s) {
+                    keysPressed.s = true;
+                    playBrake();
+                }
+            });
+
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "w" || e.key === "W") {
+                    keysPressed.w = false;
+                    stopAccelerator();
+                }
+                if (e.key === "s" || e.key === "S") {
+                    keysPressed.s = false;
+                    stopBrake();
+                }
+            });
+
+            // Stop all sounds and reset
+            function stopAllSounds() {
+                isEnginePlaying = false;
+                acceleratorEnabled = false;
+                engineLoopStarted = false;
+
+                [engineSound, engineSound2, acceleratorSound, brackSounde].forEach(s => {
+                    s.pause();
+                    s.currentTime = 0;
+                    s.volume = 0;
+                });
+
+                [acceleratorPaddel, brackPedal].forEach(el => {
+                    el.style.pointerEvents = "none";
+                    el.style.opacity = "0.5";
+                });
+            }
+
+            // Fade helpers
+            function fadeIn(audio, targetVolume, duration) {
+                let step = 50;
+                let volumeStep = (targetVolume - audio.volume) / (duration / step);
+                let interval = setInterval(() => {
+                    if (audio.volume < targetVolume) {
+                        audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, step);
+            }
+
+            function fadeOut(audio, duration) {
+                let step = 50;
+                let volumeStep = audio.volume / (duration / step);
+                let interval = setInterval(() => {
+                    if (audio.volume > 0) {
+                        audio.volume = Math.max(audio.volume - volumeStep, 0);
+                    } else {
+                        audio.pause();
+                        audio.currentTime = 0;
+                        clearInterval(interval);
+                    }
+                }, step);
+            }
+
+            // Adjust engine sound2 volume if both accel and brake are active
+            function checkEngineVolumeControl() {
+                const isAcceleratorPlaying = !acceleratorSound.paused && acceleratorSound.volume > 0;
+                const isBrakePlaying = !brackSounde.paused && brackSounde.volume > 0;
+
+                if (isAcceleratorPlaying && isBrakePlaying) {
+                    // Stop engineSound2 if both are playing
+                    fadeOut(engineSound2, 300);
+                } else if (isEnginePlaying && engineSound2.paused) {
+                    // Resume engineSound2 if engine is on and it's not already playing
+                    engineSound2.currentTime = 0;
+                    engineSound2.play();
+                    fadeIn(engineSound2, 0.5, 500);
+                }
+            }
+        });
     </script>
 
     <script>
         window.addEventListener("load", () => {
             const loader = document.querySelector(".loader-container");
 
+            // Disable scroll initially
+            document.body.classList.add("no-scroll");
+
             setTimeout(() => {
                 loader.classList.add("hide-loader");
-            }, 1000);
+
+                // Re-enable scroll after hiding the loader
+                document.body.classList.remove("no-scroll");
+            }, 3000); // same as your loader hide duration
         });
     </script>
 
