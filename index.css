@@ -703,6 +703,28 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator img
   cursor: pointer;
 }
 
+.paddel .accelerator img:hover,
+.accelerator-active {
+  transform: rotateX(25deg) translateY(10px) perspective(50px);
+  transition: transform 0.2s ease;
+}
+
+.paddel .brack img:hover,
+.brake-active {
+  transform: rotateX(25deg) translateY(10px) perspective(50px);
+  transition: transform 0.2s ease;
+}
+
+.accelerator-active {
+  transform: rotateX(25deg) translateY(10px) perspective(50px);
+  transition: transform 0.2s ease;
+}
+
+.brake-active {
+  transform: rotateX(25deg) translateY(10px) perspective(50px);
+  transition: transform 0.2s ease;
+}
+
 
 main .car_engin_container .car_engin .paddels_container .paddel .accelerator::before {
   content: "";
@@ -991,10 +1013,11 @@ main .car_engin_container .car_engin .paddels_container .paddel .accelerator spa
   .dot-label {
     font-size: 10px;
   }
-.dot-label::before {
-  width: 5px;
-  margin: 0 2px 0 -2px;
-}
+
+  .dot-label::before {
+    width: 5px;
+    margin: 0 2px 0 -2px;
+  }
 
   main .car_brande h1 {
     font-size: 50px;

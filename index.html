@@ -294,14 +294,24 @@
             // Keyboard control
             let keysPressed = { w: false, s: false };
 
+            const acceleratorImg = document.querySelector(".paddel .accelerator img");
+            const brakeImg = document.querySelector(".paddel .brack img");
+
             document.addEventListener("keydown", (e) => {
                 if ((e.key === "w" || e.key === "W") && !keysPressed.w) {
                     keysPressed.w = true;
                     playAccelerator();
+                    if (acceleratorImg) {
+                        acceleratorImg.classList.add("accelerator-active");
+                    }
                 }
+
                 if ((e.key === "s" || e.key === "S") && !keysPressed.s) {
                     keysPressed.s = true;
                     playBrake();
+                    if (brakeImg) {
+                        brakeImg.classList.add("brake-active");
+                    }
                 }
             });
 
@@ -309,12 +319,20 @@
                 if (e.key === "w" || e.key === "W") {
                     keysPressed.w = false;
                     stopAccelerator();
+                    if (acceleratorImg) {
+                        acceleratorImg.classList.remove("accelerator-active");
+                    }
                 }
+
                 if (e.key === "s" || e.key === "S") {
                     keysPressed.s = false;
                     stopBrake();
+                    if (brakeImg) {
+                        brakeImg.classList.remove("brake-active");
+                    }
                 }
             });
+
 
             // Stop all sounds and reset
             function stopAllSounds() {
